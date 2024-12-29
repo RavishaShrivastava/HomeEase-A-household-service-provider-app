@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{%block head%}
+Customer Register Page
+{%endblock%}
+
+{% block style%}
+<style>
+        body {
+            margin-top: 7vh;
+            background-image: url('/static/bg.jpg');
+            background-size: cover;
+        } 
+        button{
+            margin-top: 5vh;
+        }
+</style>
+{% endblock %}
+
+{% block body%}
+    <form action="/customer" method="POST">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Register as Customer</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="email">Email address:</label>
+                                <input type="email" class="form-control" name="email" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Full Name:</label>
+                                <input type="name" class="form-control" name="name" placeholder="Enter your full name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password">Password</label> 
+                                <input type="password" class="form-control" name="password" placeholder="Set a Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address?</label>
+                                <input type="address" class="form-control" name="address" placeholder="Provide us your address">
+                            </div>
+                            <div class="form-group">
+                                <label for="pincode">PinCode?</label>
+                                <input type="pincode" class="form-control" name="pincode" placeholder="Provide us your pin code">
+                            </div>
+                            <div class="buttons">
+
+                            <button type="submit" class="btn btn-success btn-block">Register</button>
+                            <p>Please login again!!<a href="/login">Login here</a></p>
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}

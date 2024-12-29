@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{%block head%}
+Customer Register Page
+{%endblock%}
+
+{% block style%}
+<style>
+    .nav-link{
+        color: white;
+    }
+    .container{
+        margin-top: 15vh;
+        border: 2px solid black;
+    }
+    body{
+        background-image: url('/static/custbg.png');
+        background-size: cover;
+    }
+</style>
+{% endblock %}
+
+{% block body%}
+<ul class="nav navbar-bar bg-primary justify-content-end">
+    <li class="nav-item">
+          <a class="nav-link active" href="/home">Profile</a>
+    </li>
+
+    <li class="nav-item">
+          <a class="nav-link" href="/search">Search</a>
+    </li>
+
+    <li class="nav-item">
+          <a class="nav-link" href="/cust_sum">Summary</a>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link " href="/logout">Logout</a>
+    </li>
+</ul>
+<div class="container">
+    <div class="contain">
+        <h1>Looking For??</h1>
+    </div>
+    <div class="images">
+        <div>
+        <a href="/custhome/ac cleaning"><img src="/static/ac.jpg" alt="Image" style="width:217px;height:219px;"></a>
+        <a href="/custhome/bathroom cleaning"><img src="/static/bathroom.jpg" alt="Image" style="width:217px;height:219px;"></a>
+        <a href="/custhome/kitchen cleaning"><img src="/static/kitchen.png" alt="Image" style="width:217px;height:219px;"></a>
+        <a href="/custhome/house cleaning"><img src="/static/house.jpg" alt="Image" style="width:217px;height:219px;"></a>
+        <a href="/search"><img src="/static/manymore.jpg" alt="Image" style="width:217px;height:219px;"></a>
+       
+       </div>
+       <div>
+        <em>click the image to redirect</em>
+       </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block head %}
+Summary!
+{% endblock %}
+{% block style %}
+<style>
+    body{
+        background-color: lightskyblue;
+    }
+    .nav-link{
+        color: white;
+       }
+    .image{
+        margin-top: 10vh;
+        margin-left: 50vh;
+    }
+</style>
+{% endblock %}
+{% block body %}
+{% if user.role == 'Customer' %}
+    <ul class="nav navbar-bar bg-primary justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link active" href="/custhome">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/search">Search</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/cust_sum">Summary</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/logout">Logout</a>
+        </li>
+      </ul>
+{% elif user.role == 'Professional' %} 
+<ul class="nav navbar-bar bg-primary justify-content-end">
+  <li class="nav-item">
+    <a class="nav-link active" href="/profhome">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/prof_search">Search</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/cust_sum">Summary</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/logout">Logout</a>
+  </li>
+</ul>
+{% elif user.role == 'Admin' %}
+<ul class="nav navbar-bar bg-primary justify-content-end">
+  <li class="nav-item">
+    <a class="nav-link active" href="/adminhome">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/search_customer">Search</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/cust_sum">summary</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/logout">Logout</a>
+  </li>
+</ul>
+{% endif %}
+<div class="container">
+    <h3>Service Summary</h3>
+    <em>here is your service summary</em>
+    <div class="image">
+        <img src="{{ chart_path }}" alt="Bar Graph">
+    </div>
+</div>
+{% endblock %}

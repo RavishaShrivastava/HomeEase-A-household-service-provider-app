@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block head %}
+Customer Service Requests
+{% endblock %}
+
+{% block style %}
+<style>
+    .nav-link{
+        color: white;
+    }
+    .container{
+        margin-top: 15vh;
+        border: 2px solid black;
+    }
+    body{
+        background-image: url('/static/custbg.png');
+        background-size: cover;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<ul class="nav navbar-bar bg-primary justify-content-end">
+    <li class="nav-item">
+        <a class="nav-link active" href="/home">Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/prof_search">Search</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/cust_sum">Summary</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/logout">Logout</a>
+    </li>
+</ul>
+
+<div class="container">
+    <div class="contain">
+        <h1>Service Requests</h1>
+    </div>
+    <div class="container mt-5">
+        <h2>Service Request Details</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Address</th>
+                    <th>Pincode</th>
+                    <th>Date Requested</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rq in requests %}
+                    {% if rq.service_status == 'Requested' %}
+                    <tr>
+                        <td>{{ rq.customer_name }}</td>
+                        <td>{{ rq.customer_address }}</td>
+                        <td>{{ rq.customer_pincode }}</td>
+                        <td>{{ rq.date_of_request }}</td>
+                        <td>{{ rq.service_status }}</td>
+                        <td>
+                        
+                            <form method="POST" style="display: flex; gap: 10px;" action="{{ url_for('accept_service', request_id=rq.request_id) }}">
+                                <button type="submit" class="btn btn-success">Accept</button>
+                                <button type="submit" formaction="{{ url_for('reject_service', request_id=rq.request_id) }}" class="btn btn-danger">Reject</button>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container">
+    <div class="contain">
+        <h2>History!!</h2>
+    </div>
+    <div class="container mt-5">
+        <h2>Details</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    
+                    <th>Customer Name</th>
+                    <th>Address</th>
+                    <th>Pincode</th>
+                    <th>Date Requested</th>
+                    <th>Status</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for rq in requests %}
+                    <tr>
+                        
+                        <td>{{ rq.customer_name }}</td>
+                        <td>{{ rq.customer_address }}</td>
+                        <td>{{ rq.customer_pincode }}</td>
+                        <td>{{ rq.date_of_request }}</td>
+                        <td>{% if rq.service_status == 'Accepted' or rq.service_status == 'Completed' %}
+                            {{ rq.service_status }}
+                            {% else %}
+                                <p>Rejected</p>
+                            {% endif %}
+                        </td>
+                        
+                           
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

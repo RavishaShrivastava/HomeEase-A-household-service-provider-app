@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block head %}
+Search Page
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color: lightskyblue;
+    }
+    .nav-link{
+        color: white;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<ul class="nav navbar-bar bg-primary justify-content-end">
+    <li class="nav-item">
+          <a class="nav-link active" href="/home">Profile</a>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link" href="/custhome">Home</a>
+    </li>
+
+    <li class="nav-item">
+          <a class="nav-link" href="/cust_sum">Summary</a>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link " href="/logout">Logout</a>
+    </li>
+</ul>
+
+
+<div class="container">
+    <div class="contain">
+        <h1>Available Services!</h1>
+    </div>
+    <form action="{{ url_for('search') }}" method="POST">
+        <div class="searchbar">
+            <div class="container mt-5">
+                <h1>Search</h1>
+                <input type="text" name="name" placeholder="Enter service name">
+                <button>Search</button>
+            </div>
+        </div>    
+    </form>
+    <div class="container mt-5">
+
+    <h1>{{ category | capitalize }} Book Service in one click &#128516</h1>
+    
+    <table class="table table-striped">
+        <thread>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>>
+        </thread>
+        <tbody>
+        {% if services %}
+            {% for service in services %}
+                <tr>
+                    <td>{{ service.id }}</td>
+                    <td>{{ service.name }}</td>
+                    <td>{{ service.description }}</td>
+                    <td> Rs.{{ service.price }}</td>
+                    <td>
+                        <form action="{{ url_for('book_service') }}" method="POST">
+                            <input type="hidden" name="service_id" value="{{ service.id }}">
+                            <button type="submit" class="btn btn-success btn-sm">Book Now</button>
+                        </form>
+                    </td>
+                </tr>
+                
+            {% endfor %}
+       
+    {% else %}
+        <p>No services found for this category.</p>
+    {% endif %}
+   
+    </tbody>
+</table>
+  
+<div class="container mt-5">
+    <h1>Your Service History</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Professional Assigned</th>
+                <th>Date of Request</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if service_requests %}
+                {% for request, service, professional in service_requests %}
+                    <tr>
+                        <td>{{ service.name }}</td>
+                        <td>{{ professional.name if professional else 'N/A' }}</td>
+                        <td>{{ request.date_of_request }}</td>
+                        <td>
+                            {% if request.service_status == 'Accepted' %}
+                                <form action="/close_it/{{ request.id }}" method="post">
+                                    <button type="submit" class="btn btn-success btn-block">Close it??</button>
+                                </form>
+                            {% else %}
+                                {{ request.service_status }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4">No service history available.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

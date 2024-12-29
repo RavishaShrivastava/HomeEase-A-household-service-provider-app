@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{%block head%}
+Login Page
+{%endblock%}
+
+{% block style%}
+    <style>
+        body{
+        background-image: url('/static/interface.png');
+        background-size: cover;
+        }
+       .nav-link{
+        color: white;
+       }
+       .container{
+        margin-top: 12vh;
+        margin-left: 12vh;
+       }
+    </style>
+{% endblock %}
+
+
+{% block body%}
+
+{% if user.role == 'Customer' %}
+    <ul class="nav navbar-bar bg-primary justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link active" href="/custhome">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/search">Search</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/cust_sum">Summary</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/logout">Logout</a>
+        </li>
+      </ul>
+{% elif user.role == 'Professional' %} 
+<ul class="nav navbar-bar bg-primary justify-content-end">
+  <li class="nav-item">
+    <a class="nav-link active" href="/profhome">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/prof_search">Search</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/cust_sum">Summary</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/logout">Logout</a>
+  </li>
+</ul>
+{% elif user.role == 'Admin' %}
+<ul class="nav navbar-bar bg-primary justify-content-end">
+  <li class="nav-item">
+    <a class="nav-link active" href="/adminhome">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/search_customer">Search</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/cust_sum">summary</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/logout">Logout</a>
+  </li>
+</ul>
+{% endif %}
+<div class="container">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="form-container">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Welcome {{user.name}}!!</h3>
+                    </div>
+                    <div class="card-body">
+                        
+                        <h3>Your Personal details:      </h3>
+                        <p><b>Your Unique ID: </b>{{user.id}}</p>
+                        <p><b>Full Name: </b>{{user.name}}</p>
+                        <p><b>Your Email ID: </b>{{user.email}}</p>
+
+                        {% if user.role == 'Customer' %}
+                        <p><b>Role: </b>{{user.role}}</p>
+                        <p><b>Address: </b>{{user.address}}</p>
+                        <p><b>Your Pin code: </b>{{user.pincode}}</p>
+
+                        {% elif user.role == 'Professional' %}
+                          <p><b>Service Provided: </b>{{user.service}}</p>
+                          <p><b>Your Experience: </b>{{user.experience}}</p>
+                          <p><b>Address: </b>{{user.address}}</p>
+                          <p><b>Your Pin code: </b>{{user.pincode}}</p>
+                          <p><b>Status : APPROVED!!</b></p>
+                      
+                        {% elif user.role == 'Admin' %}
+                        <p><b>Role: </b>{{user.role}}</p>
+                        <p><b>Admin Of: </b>HomeEase Care</p>
+                        {% endif %}
+                        
+
+
+                        
+                        <em><q>Hope you have a great day</q></em>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

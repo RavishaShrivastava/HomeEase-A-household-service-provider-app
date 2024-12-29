@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block head %}
+Login Page
+{% endblock %}
+
+{% block style %}
+    <style>
+        body{
+        background-image: url('/static/notfound.png');
+        background-size: cover;
+        }
+        .nav-link{
+          color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<ul class="nav navbar-bar bg-primary justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link" href="/custhome">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/search">Search</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="/cust_sum">Summary</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/logout">Logout</a>
+    </li>
+  </ul>
+{% endblock %}

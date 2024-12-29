@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{%block head%}
+Customer Register Page
+{%endblock%}
+
+{% block style%}
+<style>
+    .nav-link{
+        color: white;
+    }
+    .container{
+        margin-top: 15vh;
+        border: 2px solid black;
+    }
+    body{
+        background-color: lightskyblue;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<ul class="nav navbar-bar bg-primary justify-content-end">
+    <li class="nav-item">
+          <a class="nav-link active" href="/home">Profile</a>
+    </li>
+
+    <li class="nav-item">
+          <a class="nav-link" href="/search">Search</a>
+    </li>
+
+    <li class="nav-item">
+          <a class="nav-link" href="/cust_sum">Summary</a>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link " href="/logout">Logout</a>
+    </li>
+</ul>
+<div class="container">
+    <div class="contain">
+        <h1>Service!</h1>
+    </div>
+
+    <div class="container mt-5">
+
+    <h1>{{ category | capitalize }} Services</h1>
+    <table class="table table-striped">
+        <thread>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>>
+        </thread>
+        <tbody>
+        {% if services %}
+            {% for service in services %}
+                <tr>
+                    <td>{{ service.name }}</td>
+                    <td>{{ service.description }}</td>
+                    <td> Rs.{{ service.price }}</td>
+                    <td>
+                        <form action="{{ url_for('book_service') }}" method="POST">
+                            <input type="hidden" name="service_id" value="{{ service.id }}">
+                            <button type="submit" class="btn btn-success btn-sm">Book Now</button>
+                        </form>
+                    </td>
+                </tr>
+                
+            {% endfor %}
+       
+    {% else %}
+        <p>No services found for this category.</p>
+    {% endif %}
+    <a href="/custhome">Back to Home</a>
+    </tbody>
+</table>
+  
+</div>
+{% endblock %}

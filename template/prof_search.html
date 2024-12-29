@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{%block head%}
+Not found
+{%endblock%}
+
+{% block style%}
+<style>
+    .nav-link{
+        color: white;
+    }
+    body{
+        background-color: lightskyblue;
+    }
+    .searching{
+      margin-top: 5vh;
+    }
+    .results{
+      margin-top: 2vh;
+    }
+</style>
+{% endblock %}
+
+{% block body%}
+<ul class="nav navbar-bar bg-primary justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link active" href="/profhome">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/prof_search">Search</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="/cust_sum">Summary</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/logout">Logout</a>
+    </li>
+  </ul>
+  <h1>Search Service</h1>
+    
+  <div class="searching">
+  <form method="post" action="{{ url_for('prof_search') }}">
+      <label for="pincode">Enter Pincode:</label>
+      <input type="text" name="pincode" id="pincode" required>
+      <button type="submit">Search</button>
+  </form>
+  </div>
+  <div class="results">
+  {% if requests %}
+      <h2>Search Results</h2>
+      <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Service ID</th>
+                <th>Customer Name</th>
+                <th>Address</th>
+                <th>Pincode</th>
+                <th>Date Requested</th>
+                <th>Status</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for rq in requests %}
+                <tr>
+                    <td>{{ rq.service_id }}</td>
+                    <td>{{ rq.customer_name }}</td>
+                    <td>{{ rq.customer_address }}</td>
+                    <td>{{ rq.customer_pincode }}</td>
+                    <td>{{ rq.date_of_request }}</td>
+                    <td>{{ rq.service_status }}</td>     
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  {% elif request.method == 'POST' %}
+      <p>No results found for the given pincode.</p>
+  {% endif %}
+</div>
+{% endblock %}

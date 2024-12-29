@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block head %}
+prof search
+{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            background-color: lightskyblue;
+        }
+        .form-container {
+            margin-left: 1vw; 
+            margin-top: 12.3vh;
+            width: 35%; 
+        }
+        button {
+            margin-top: 5vh;
+        }
+        .nav-link{
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<ul class="nav navbar-bar bg-primary justify-content-end">
+    <li class="nav-item">
+        <a class="nav-link active" href="/home">Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Search</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/cust_sum">Summary</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/logout">Logout</a>
+    </li>
+</ul>
+<div class="container mt-5">
+    <h2>Search Service Requests</h2>
+    <form action="{{ url_for('search_customer') }}" method="POST">
+        <div class="form-group">
+            <label for="service">Select Service:</label>
+            <select id="service" name="service_id" class="form-control" required>
+                <option value="" disabled selected>Select a service</option>
+                {% for service in services %}
+                    <option value="{{ service.id }}">{{ service.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if service_requests %}
+    <h3 class="mt-4">Result!!!</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Service Request ID</th>
+                <th>Service ID</th>
+                <th>Customer ID</th>
+                <th>Professional ID</th>
+                <th>Date of Request</th>
+                <th>Service Status</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in service_requests %}
+                <tr>
+                    <td>{{ request.id }}</td>
+                    <td>{{ request.service_id }}</td>
+                    <td>{{ request.customer_id }}</td>
+                    <td>{{ request.professional_id }}</td>
+                    <td>{{ request.date_of_request }}</td>
+                    <td>{{ request.service_status }}</td>
+                    <td>{{ request.remark }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif request.method == 'POST' %}
+        <p>No service requests found</p>
+    {% endif %}
+</div>
+{% endblock %}

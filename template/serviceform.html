@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{%block head%}
+Service form Page
+{%endblock%}
+
+{% block style%}
+<style>
+        body {
+            margin-top: 7vh;
+            background-color: lightskyblue;
+        } 
+        button{
+            margin-top: 5vh;
+        }
+</style>
+{% endblock %}
+
+{% block body%}
+    <form action="/serviceform" method="POST">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Create new Service</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            
+                            <div class="form-group">
+                                <label for="name">Service Name:</label>
+                                <input type="name" class="form-control" name="name" placeholder="Enter your service name">
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="number" class="form-control" name="price" placeholder="Enter the service price" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" name="description" rows="4" placeholder="Describe your service..." required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Time</label>
+                                <input type="text" class="form-control" name="time" value="{{ current_time }}" readonly>
+                            </div>
+                            
+                            
+                            <div class="buttons">
+                            <button type="submit" class="btn btn-primary">Submit</button>   
+                            
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}
